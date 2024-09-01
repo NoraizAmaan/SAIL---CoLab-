@@ -1,0 +1,136 @@
+{% extends 'base.html'%}
+
+{% block title %} Home {% endblock title %}
+{% block body %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+
+      <!-- Styling part starts here -->
+
+<style>
+
+      /* Styling part of the Navbar. */
+              body{
+                  font-family:Arial, Helvetica, sans-serif ;
+                  margin: 0;
+                  padding: 0;
+      
+                  /* background image */
+                  background-image: url(https://images.pexels.com/photos/3756681/pexels-photo-3756681.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+                  background-size: cover; 
+                  background-repeat: no-repeat;
+                  /* background-size: 1550px 710px;  */
+                  background-size: 100%;
+              
+               }
+               /* Sign up button Style */
+         .signup-btn {
+            background-color: darkblue;
+            color: white;
+    padding: 20px 40px; /* Adjust padding for better appearance */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 350px;
+    margin-left: 180px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+         }
+
+         .signup-btn:hover{
+            background-color: darkgrey;
+         }
+
+         /* styling image of man working on laptop */
+
+         .man-image{
+            position: relative;
+         }
+
+         .man-image img {
+            position: absolute;
+            width: 500px;
+            height: auto;
+            top: 400px;
+            left: 50px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+         }
+
+         /* Styling yellow image */
+
+         .yellow-image{
+            position: relative;
+
+         }
+
+         .yellow-image img{
+            position: absolute;
+            width: 1500px;
+            height: 500px;
+            top:900px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+
+         }
+
+         .lastLine{
+            position: absolute;
+            top: 2200px;
+         }
+
+         .text-alpha{
+            position: absolute;
+            top: 820px;
+            max-width:400px ;
+            right: 280px;
+            font-size:21px;
+            font-family: 'Times New Roman', Times, serif;
+         }
+
+         .tagline {
+            font-size: 50px; 
+            letter-spacing: 30px;
+            margin-top: 200px;
+            position: absolute;
+            top: 193%; 
+    left: 50%;
+    transform: translate(-50%, -50%)
+        }
+</style>
+      <!-- Sign up button -->
+     <button class="signup-btn">Join Us</button>
+
+
+     <!-- Man working on laptop image -->
+     
+     <div class="man-image">
+          <img src="https://img.freepik.com/free-photo/male-entrepreneur-working-computer-home_637285-12152.jpg" alt="Man working on laptop image">
+           </div>
+     
+           <div class="yellow-image">
+             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTr7p9tH1jHIGd-0ST7A7WBaP9X1A7RVeAuw&usqp=CAU">
+         </div>
+     
+         <div class="lastLine">
+             This website is under development.
+         </div>
+         
+         <div class="text-alpha">
+             <h1>Welcome to Our Virtual Workspace</h1>
+             <p>"In the digital realm where work meets innovation, we offer a sanctuary for your team's ideas to thrive. From casual banter to profound discussions, from sharing files to celebrating milestones, every interaction here is a stepping stone towards your collective success."
+             </p>
+         </div>
+     
+         <div class="tagline">
+             <span>Connect</span><span>.</span><span>Collaborate</span><span>.</span><span>Create</span>
+     
+         </div>
+         
+  </body>
+</html>
+{% endblock body %}

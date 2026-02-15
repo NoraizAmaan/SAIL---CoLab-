@@ -1,155 +1,223 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{% endblock title %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">Dashboard</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/about">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/">Chat</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/contact">Contact</a>
-              </li>
-              
-            </ul>  
-            <form method="get" action="/search" class="d-flex mx-3" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query" id="search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-             <!-- <a href= '/admin' role='button' target="_blank" class="btn btn-outline-success m-2 my-sm-0">Admin Panel</a> -->
 
-            {% if user.is_authenticated %}
-            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Welcome {{request.user}}
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                </ul>
-              </li>
-            </ul>
-            
-            {% else %}
-            <!-- Button to trigger Login modal -->
-            <button type="button" class="btn btn-success mx-1" data-bs-toggle="modal" data-bs-target="#loginModal">
-            Login
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}CoLab{% endblock title %}</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom CSS -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg sticky-top navbar-glass">
+    <div class="container">
+      <a class="navbar-brand" href="/"><i class="fab fa-connectdevelop me-2"></i>CoLab</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Centered Nav Links -->
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item mx-lg-2">
+            <a class="nav-link" aria-current="page" href="/"><i class="fas fa-home me-1 d-lg-none"></i> Home</a>
+          </li>
+          <li class="nav-item mx-lg-2">
+            <a class="nav-link" href="/about"><i class="fas fa-info-circle me-1 d-lg-none"></i> About</a>
+          </li>
+          <li class="nav-item mx-lg-2">
+            <a class="nav-link" href="/chat/"><i class="fas fa-comments me-1 d-lg-none"></i> Chat</a>
+          </li>
+          <li class="nav-item mx-lg-2">
+            <a class="nav-link" href="/contact"><i class="fas fa-envelope me-1 d-lg-none"></i> Contact</a>
+          </li>
+        </ul>
+
+        <!-- Right Side: Search + User -->
+        <div class="d-flex align-items-lg-center flex-column flex-lg-row">
+          <form method="get" action="/search" class="d-flex me-lg-3 mb-3 mb-lg-0" role="search">
+            <div class="input-group">
+              <input class="form-control border-end-0" type="search" placeholder="Search..." aria-label="Search"
+                name="query" id="search" style="border-radius: 10px 0 0 10px;">
+              <button class="btn btn-outline-secondary border-start-0" type="submit"
+                style="border-radius: 0 10px 10px 0; background: #f8f9fa; border-color: #e1e1e1;"><i
+                  class="fas fa-search text-muted"></i></button>
+            </div>
+          </form>
+
+          {% if user.is_authenticated %}
+          <ul class="navbar-nav mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fas fa-user-circle me-1"></i> {{request.user}}
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 rounded-4 mt-2 overflow-hidden">
+                <li><a class="dropdown-item py-2 text-danger" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>
+                    Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          {% else %}
+          <div class="d-flex flex-column flex-lg-row">
+            <button type="button" class="btn btn-outline-dark rounded-pill me-lg-2 mb-2 mb-lg-0 px-4"
+              data-bs-toggle="modal" data-bs-target="#loginModal">
+              Login
             </button>
-            <!-- Button to trigger SignUp modal -->
-            <button type="button" class="btn btn-success mx-1" data-bs-toggle="modal" data-bs-target="#signupModal">
-            SignUp
+            <button type="button" class="btn btn-primary rounded-pill px-4" data-bs-toggle="modal"
+              data-bs-target="#signupModal">
+              Sign Up
             </button>
-            
-            {% endif %}
           </div>
+          {% endif %}
         </div>
-      </nav>
-      {% for message in messages %}
-      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-        <strong>Message: </strong> {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
-      {% endfor %}
+    </div>
+  </nav>
 
+  {% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm rounded-3 border-0" role="alert">
+      <i class="fas fa-info-circle me-2"></i> {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
 
-
-<!--SignUp Modal -->
-<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModal" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="signupModalTitle">SignUp Here</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-      <div class="modal-body">
-        <form action='/signup' method='POST'>
-        <div class="mb-3">
-          <label for="username" class="form-label">Username</label>
-          <input type="text" class="form-control" id="username" name="username" placeholder="Choose a unique Username (lowercase & AlphaNumeric)" required>
-        </div>
-        <div class="mb-3">
-          <label for="fname" class="form-label">First Name</label>
-          <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" required>
-        </div>
-        <div class="mb-3">
-          <label for="lname" class="form-label">Last Name</label>
-          <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" required>
-        </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
-        </div>
-        <div class="mb-3">
-          <label for="pass1" class="form-label">Choose a Password</label>
-          <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Choose Your Password" required>
-        </div>
-        <div class="mb-3">
-          <label for="pass2" class="form-label">Confirm Password</label>
-          <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Enter Your Password Again" required>
+  <!--SignUp Modal -->
+  <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-4 fw-bold" id="signupModalTitle"><i
+              class="fab fa-connectdevelop me-2 text-primary"></i> Join
+            CoLab</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        {% csrf_token %}
-        <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
-      <div class="modal-footer">
+        <div class="modal-body">
+          <p class="text-muted mb-4">Create an account to start collaborating with your team.</p>
+          <form action='/signup' method='POST'>
+            <div class="mb-3">
+              <label for="username" class="form-label fw-semibold">Username</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="e.g. johndoe" required>
+              <div class="form-text">Lowercase & AlphaNumeric only.</div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="fname" class="form-label fw-semibold">First Name</label>
+                <input type="text" class="form-control" id="fname" name="fname" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="lname" class="form-label fw-semibold">Last Name</label>
+                <input type="text" class="form-control" id="lname" name="lname" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label fw-semibold">Email address</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="name@company.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="pass1" class="form-label fw-semibold">Password</label>
+              <input type="password" class="form-control" id="pass1" name="pass1" required>
+            </div>
+            <div class="mb-4">
+              <label for="pass2" class="form-label fw-semibold">Confirm Password</label>
+              <input type="password" class="form-control" id="pass2" name="pass2" required>
+            </div>
+
+            {% csrf_token %}
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg rounded-pill">Create Account</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer justify-content-center border-0 pb-4">
+          <small class="text-muted">Already have an account? <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal"
+              data-bs-target="#loginModal" class="text-decoration-none fw-bold">Login</a></small>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!--LoginUp Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="loginModalTitle">Login Here</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-      <div class="modal-body">
-        <form action='/login' method='POST'>
-          {% csrf_token %}
-        <div class="mb-3">
-          <label for="username" class="form-label">Username</label>
-          <input type="text" class="form-control" id="loginusername" name="loginusername" placeholder="Enter your Username" required>
+  <!--Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-4 fw-bold" id="loginModalTitle">Welcome Back</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        
-        <div class="mb-3">
-          <label for="pass" class="form-label">Enter your Password</label>
-          <input type="password" class="form-control" id="loginpassword" name="loginpassword" placeholder="Enter your Password" required>
+
+        <div class="modal-body">
+          <div class="text-center mb-4">
+            <div
+              class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center"
+              style="width: 80px; height: 80px;">
+              <i class="fas fa-user-lock fa-2x"></i>
+            </div>
+          </div>
+          <form action='/login' method='POST'>
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="loginusername" class="form-label fw-semibold">Username</label>
+              <input type="text" class="form-control" id="loginusername" name="loginusername" required>
+            </div>
+
+            <div class="mb-4">
+              <label for="loginpassword" class="form-label fw-semibold">Password</label>
+              <input type="password" class="form-control" id="loginpassword" name="loginpassword" required>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg rounded-pill">Login</button>
+            </div>
+          </form>
         </div>
-        
-        <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-      </div>
-      <div class="modal-footer">
+        <div class="modal-footer justify-content-center border-0 pb-4">
+          <small class="text-muted">Don't have an account? <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal"
+              data-bs-target="#signupModal" class="text-decoration-none fw-bold">Sign Up</a></small>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-      {% block body %}
-      {% endblock body %}
-      
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  </body>
+  {% block body %}
+  {% endblock body %}
+
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-6">
+          <h4 class="mb-3 text-white fw-bold"><i class="fab fa-connectdevelop me-2"></i>CoLab</h4>
+          <p class="text-white">Connect your team with the tools they need to succeed.</p>
+        </div>
+      </div>
+      <div class="social-links mb-4">
+        <a href="#" class="mx-3 fs-5"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="mx-3 fs-5"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="mx-3 fs-5"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="mx-3 fs-5"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <hr class="border-secondary opacity-25 mx-auto" style="max-width: 200px;">
+      <p class="mb-0 mt-4 small text-white">&copy; 2024 CoLab Workspace. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>

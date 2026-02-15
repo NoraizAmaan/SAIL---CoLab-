@@ -1,0 +1,20 @@
+# bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# fast api
+.env
+.venv
+venv/
+ENV/
+env/
+
+# database
+*.sqlite3
+*.db
+
+# distribution / packaging
+dist/
+build/
+*.egg-info/

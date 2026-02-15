@@ -2,5 +2,34 @@
 
 {% block title %}Home{% endblock title %}
 {% block body %}
-about
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <h1 class="display-4 fw-bold mb-4">About CoLab</h1>
+            <p class="lead text-muted mb-5">
+                CoLab is a modern collaboration platform designed to bring teams together.
+                Whether you're a small startup or a large enterprise, our tools help you stay connected, aligned, and
+                productive.
+            </p>
+        </div>
+    </div>
+    <div class="row g-5 align-items-center">
+        <div class="col-md-6">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Team collaboration" class="img-fluid rounded-3 shadow">
+        </div>
+        <div class="col-md-6">
+            <h2 class="h3 mb-3">Our Mission</h2>
+            <p>
+                We believe that great work happens when people can communicate freely and effortlessly.
+                Our mission is to remove the friction from remote work and empower teams to achieve their best.
+            </p>
+            <ul class="list-unstyled mt-4">
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Real-time messaging</li>
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i> File sharing made easy</li>
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Secure and private</li>
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock body %}

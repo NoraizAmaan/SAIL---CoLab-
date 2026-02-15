@@ -29,11 +29,18 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('home.urls')),
     path('Dashboard/', include('Dashboard.urls')),
+    path('chat/', include('chat.urls')),
 
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
 ]
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns += router.urls
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

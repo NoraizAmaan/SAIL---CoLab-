@@ -139,8 +139,9 @@
     const inputArea = document.querySelector('.chat-input-area');
 
     // Construct WebSocket path
+    const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
     const chatSocket = new WebSocket(
-        'ws://' + window.location.host + '/ws/chat/' + roomName + '/'
+        protocol + window.location.host + '/ws/chat/' + roomName + '/'
     );
 
     const messagesContainer = document.querySelector('#chat-messages');

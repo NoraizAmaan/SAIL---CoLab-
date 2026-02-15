@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 from pathlib import Path
 
 import os
+import dj_database_url
 from django.contrib.messages import constants as messages
 
 
@@ -29,7 +30,7 @@ SECRET_KEY = "django-insecure-#8nk)31!x%uv)r!pado*8$(8ao40nkogn4feb8d)#xh(0)dvh$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -59,6 +60,7 @@ CHANNEL_LAYERS = {
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -92,14 +94,10 @@ WSGI_APPLICATION = "Slack.wsgi.application"
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "newdb",
-        "USER": "noraiz",
-        "PASSWORD": "Noraiz@123",
-        "HOST": "127.0.0.1",
-        "PORT": "3306",
-    }
+    "default": dj_database_url.config(
+        default="mysql://noraiz:Noraiz@123@127.0.0.1:3306/newdb",
+        conn_max_age=600
+    )
 }
 
 
@@ -138,6 +136,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]

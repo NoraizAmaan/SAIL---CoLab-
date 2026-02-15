@@ -6,3 +6,5 @@ pip install -r requirements.txt
 python Slack/manage.py collectstatic --no-input
 
 python Slack/manage.py migrate
+
+python Slack/create_superuser.py

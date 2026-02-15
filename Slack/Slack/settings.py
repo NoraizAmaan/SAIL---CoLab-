@@ -32,6 +32,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ['https://colab-wez2.onrender.com']
+
 
 # Application definition
 
@@ -74,7 +76,7 @@ ROOT_URLCONF = "Slack.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ['templates'],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -95,7 +97,7 @@ WSGI_APPLICATION = "Slack.wsgi.application"
 
 DATABASES = {
     "default": dj_database_url.config(
-        default="mysql://noraiz:Noraiz@123@127.0.0.1:3306/newdb",
+        default="mysql://noraiz:Noraiz%40123@127.0.0.1:3306/newdb",
         conn_max_age=600
     )
 }
